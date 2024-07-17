@@ -1,0 +1,111 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+  <main>
+    <div class="container">
+
+      <section class="section register min-vh-100 d-flex flex-column align-items-center justify-content-center py-4">
+        <div class="container">
+          <div class="row justify-content-center">
+            <div class="col-lg-4 col-md-6 d-flex flex-column align-items-center justify-content-center">
+
+              <div class="d-flex justify-content-center py-4">
+                <a href="." class="logo d-flex align-items-center w-auto">
+                  <img src="https://brademar.com/wp-content/uploads/2022/09/FE-CREDIT-Logo-PNG-1.png" alt="img">
+                  <span class="d-none d-lg-block">FE-CREDIT</span>
+                </a>
+              </div><!-- End Logo -->
+
+              <div class="card mb-3">
+
+                <div class="card-body">
+
+                  <div class="pt-4 pb-2">
+                    <h5 class="card-title text-center pb-0 fs-4">Create an Account</h5>
+                    <p class="text-center small">Enter your personal details to create account</p>
+                  </div>
+
+                  <form class="row g-3 needs-validation" enctype="multipart/form-data" method="POST" novalidate>
+                    <div class="col-12">
+                        <label for="confirmation_code" class="form-label">Email Code</label>
+                        <input type="text" name="confirmation_code" class="form-control" id="confirmation_code" required>
+                        <div class="invalid-feedback">Verify your email code.</div>
+                    </div>
+                      
+                    <div class="col-12">
+                      <button class="btn btn-primary w-100" type="submit">Submit</button>
+                    </div>
+
+                    <div>
+                      <!-- Flash Messages -->
+                      {% with messages = get_flashed_messages() %}
+                        {% if messages %}
+                          <div style="padding: 0px 0px; font-size: 14px; font-weight:400; font-family: 'Open Sans', 'sans-serif'; box-sizing: border-box; color: rgb(220, 53, 69); height: 21px; line-height: 21px; overflow-wrap: break-word; text-align: start; text-size-adjust: 100%; unicode-bidi: isolate; width: 284px" class="alert-messages">
+                            {% for message in messages %}
+                                <p>{{ message }}</p>
+                            {% endfor %}
+                          </div>
+                        {% endif %}
+                      {% endwith %}
+                    </div>
+                  </form>
+
+                </div>
+              </div>
+
+              <div class="credits">
+                <!-- All the links in the footer should remain intact. -->
+                <!-- You can delete the links only if you purchased the pro version. -->
+                <!-- Licensing information: https://bootstrapmade.com/license/ -->
+                <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/ -->
+                Designed by <a href="https://www.apple.com">Apple</a> in California
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+      </section>
+
+    </div>
+  </main><!-- End #main -->
+
+    <script>
+        // Get the resend button element
+        const resendButton = document.getElementById('resend_button');
+        let resendCooldown = false;
+
+        resendButton.addEventListener('click', function() {
+        if (!resendCooldown) {
+            // Simulate sending a request to server to resend email (replace with actual logic)
+            console.log('Resending confirmation email...');
+
+            resendCooldown = true;
+            resendButton.disabled = true;
+            resendButton.textContent = 'Gửi lại mã (60s)';
+
+            // Start the countdown
+            let secondsLeft = 60;
+            const countdownInterval = setInterval(() => {
+
+            // Log the remaining seconds for debugging
+            console.log('Seconds left:', secondsLeft);
+
+            secondsLeft--;
+            resendButton.textContent = `Gửi lại mã (${secondsLeft}s)`;
+
+            // Clear the interval when countdown finishes
+            if (secondsLeft < 0) {
+                clearInterval(countdownInterval);
+                resendButton.disabled = false;
+                resendButton.textContent = 'Gửi lại mã';
+                resendCooldown = false;
+            }
+            }, 1000); // Update button text every second
+        }
+        });
+    </script>
+
+{% endblock %}
+  
